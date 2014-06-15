@@ -77,3 +77,11 @@ Now that the init script is installed in `/etc/init.d/`, we should be able to te
 
 ... and now the fcserver script is running again and you should be able to access this from the web UI! Click the "Reconnect" button in the web UI and try a test pattern again.
 
+
+###### 6. Add script to boot
+
+Now we just need to tell the device to start our script on boot:
+
+`sudo update-rc.d rpi_fcserver defaults`
+
+Test it out with `reboot` and see if your web UI is running!
