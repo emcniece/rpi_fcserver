@@ -11,10 +11,9 @@ While this was designed and tested on a Raspberry Pi, there is no reason it shou
 
 Download the files to your device. The first step here will change directory into your user, but you can install this anywhere else you desire. Just remember this server directory for later. Note that the git clone has the `--recursive` option - this is required for actually grabbing the fcserver package.
 
-`
-$ cd ~
-$ git clone --recursive https://github.com/emcniece/rpi_fcserver.git
-`
+
+    $ cd ~
+    $ git clone --recursive https://github.com/emcniece/rpi_fcserver.git
 
 
 ##### 2. Edit init files
@@ -25,10 +24,10 @@ We'll have to edit our service script to match our installation directory. If yo
 
 Change 2 lines to match your setup:
 
-`
-INSTDIR=/root/rpi_fcserver/
-DAEMON_ARGS="$INSTDIR/rpi_fcconfig.json"
-`
+
+    INSTDIR=/root/rpi_fcserver/
+    DAEMON_ARGS="$INSTDIR/rpi_fcconfig.json"
+
 
 ###### nano ~/rpi_fcserver/rpi_fcserver.json
 
@@ -38,21 +37,22 @@ Adjust fcserver config variables as needed. The default IP address of 127.0.0.1 
 ##### 3. Install init files
 
 Copy the init file to /etc/init.d and make it executable: 
-- `$ cp rpi_fcserver /etc/init.d/rpi_fcserver`
-- `$ chmod 755 /etc/init.d/rpi_fcserver`
+
+    $ cp rpi_fcserver /etc/init.d/rpi_fcserver
+    $ chmod 755 /etc/init.d/rpi_fcserver
 
 
 ##### 4. Build Fadecandy Server
 
 As per the [build instructions](https://github.com/scanlime/fadecandy/tree/master/server):
 
-- `$ cd fadecandy/server`
-- `$ make submodules`
-- `$ make`
+    $ cd fadecandy/server
+    $ make submodules
+    $ make
 
 
 ##### 5. Test script and service
 
 From the current directory of `fadecandy/server`, we can test our configuration by executing the following:
 
-`./fcserver ~/
+./fcserver ~/
