@@ -1,5 +1,4 @@
 rpi_fcserver
 ============
 
-Raspberry Pi Fadecandy Server Init Scripts
-------------------------------------------
+#### Raspberry Pi Fadecandy Server Init Scripts
