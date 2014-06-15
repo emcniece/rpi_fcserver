@@ -20,6 +20,11 @@ Download the files to your device. The first step here will change directory int
 
 We'll have to edit our service script to match our installation directory. If you're still in the current installation directory, you can find this path by taking the output of `pwd`.
 
+    root@raspberrypi:~# cd ~
+    root@raspberrypi:~# pwd
+    /root
+
+
 ###### $ nano ~/rpi_fcserver/rpi_fcserver
 
 Change 2 lines to match your setup:
@@ -38,7 +43,7 @@ Adjust fcserver config variables as needed. The default IP address of 127.0.0.1 
 
 Copy the init file to /etc/init.d and make it executable: 
 
-    $ cp rpi_fcserver /etc/init.d/rpi_fcserver
+    $ cp rpi_fcserver/rpi_fcserver /etc/init.d/rpi_fcserver
     $ chmod 755 /etc/init.d/rpi_fcserver
 
 
@@ -46,7 +51,7 @@ Copy the init file to /etc/init.d and make it executable:
 
 As per the [build instructions](https://github.com/scanlime/fadecandy/tree/master/server):
 
-    $ cd fadecandy/server
+    $ cd ~/rpi_fcserver/fadecandy/server
     $ make submodules
     $ make
 
@@ -55,4 +60,20 @@ As per the [build instructions](https://github.com/scanlime/fadecandy/tree/maste
 
 From the current directory of `fadecandy/server`, we can test our configuration by executing the following:
 
-./fcserver ~/
+`./fcserver ~/rpi_fcserver/rpi_fcserver.json`
+
+This should start the server and the console should print out a few lines about what it is running:
+
+    [1402858109:3347] NOTICE: Server listening on 127.0.0.1:7890
+    USB device Fadecandy (Serial# SIIEMIFICPWJDCQR, Version 1.07) attached.
+
+If you have updated your IP address previously in step 2 you should now be able to browse to your device at port `:7890` and be presented with the Fadecandy web UI. Try the test patterns and exit the script (`Ctrl + C`) when finished. If you still have the web UI open, you should see the interface change to a big "Reconnect" button.
+
+Now that the init script is installed in `/etc/init.d/`, we should be able to test the service layer:
+
+    root@raspberrypi:~# service rpi_fcserver status
+    [FAIL] fcserver is not running ... failed!
+    root@raspberrypi:~# service rpi_fcserver start
+
+... and now the fcserver script is running again and you should be able to access this from the web UI! Click the "Reconnect" button in the web UI and try a test pattern again.
+

@@ -25,8 +25,8 @@ PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Update this path to match your Fadecandy installation directory, NO TRAILING SLASH
-INSTDIR=/root/fadecandy/server
-DAEMON=$INSTDIR/$NAME
+INSTDIR=/root/rpi_fcserver
+DAEMON=$INSTDIR/fadecandy/server/$NAME
 
 # fcserver config file location, edit if changed
 DAEMON_ARGS="$INSTDIR/rpi_fcconfig.json"
@@ -74,6 +74,7 @@ do_stop()
         #   1 if daemon was already stopped
         #   2 if daemon could not be stopped
         #   other if a failure occurred
+        echo "Stopping $DAEMON, please wait..." &>2
         start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --name $NAME
         RETVAL="$?"
         [ "$RETVAL" = 2 ] && return 2
